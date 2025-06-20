@@ -1,1 +1,1 @@
-# codigos y librerias para usar el entrenador mini c3
+# Codigos y librerias para usar el Entrenador mini c3
