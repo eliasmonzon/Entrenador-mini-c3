@@ -40,16 +40,28 @@ def web_page():
 
     html = """<html>
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body { font-family: Arial; text-align: center; padding-top: 30px; background-color: #f0f0f0; }
-
+body {
+  font-family: Arial;
+  text-align: center;
+  padding-top: 30px;
+  background-color: #f0f0f0;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  justify-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
 .switch {
   position: relative;
   display: inline-block;
   width: 120px;
   height: 70px;
-  margin: 30px;
 }
 .switch input { display: none; }
 .slider {
@@ -90,7 +102,6 @@ function toggleCheckbox(idx, element) {
     xhr.send();
 }
 
-// Actualiza los estados cada 1 segundo
 setInterval(function() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
@@ -110,16 +121,18 @@ setInterval(function() {
 </head>
 <body>
 <h1>Control de 4 Relés</h1>
+<div class="grid">
 """ + "".join(f"""
-<div>
-  <label class="switch">
-    <input type="checkbox" id="rele{i}" onchange="toggleCheckbox({i}, this)" {checks[i]}>
-    <span class="slider"></span>
-  </label>
-  <div class="estado" id="estado{i}">{'Encendido' if checks[i] else 'Apagado'}</div>
-  <div>Relé {i+1}</div>
-</div>
+  <div>
+    <label class="switch">
+      <input type="checkbox" id="rele{i}" onchange="toggleCheckbox({i}, this)" {checks[i]}>
+      <span class="slider"></span>
+    </label>
+    <div class="estado" id="estado{i}">{'Encendido' if checks[i] else 'Apagado'}</div>
+    <div>Relé {i+1}</div>
+  </div>
 """ for i in range(4)) + """
+</div>
 </body>
 </html>
 """
@@ -133,7 +146,6 @@ s.settimeout(0.1)
 
 while True:
     try:
-        # Leer botones físicos
         for i in range(4):
             actual = botones[i].value()
             if actual == 1 and estado_anterior[i] == 0:
@@ -142,7 +154,6 @@ while True:
                 time.sleep(0.2)
             estado_anterior[i] = actual
 
-        # Atender clientes web
         try:
             conn, addr = s.accept()
             conn.settimeout(3.0)
@@ -152,7 +163,6 @@ while True:
             request = str(request)
             print('Petición:', request)
 
-            # Comando AJAX desde web
             if '/?rele=' in request:
                 try:
                     idx = int(request.split("rele=")[1].split("&")[0])
@@ -163,20 +173,18 @@ while True:
                 except:
                     pass
 
-            # Solicitud de estados
             if '/estados' in request:
                 estados = [str(rele.value()) for rele in reles]
                 conn.send('HTTP/1.1 200 OK\n')
-                conn.send('Content-Type: text/plain\n')
+                conn.send('Content-Type: text/plain; charset=utf-8\n')
                 conn.send('Connection: close\n\n')
                 conn.sendall(",".join(estados))
                 conn.close()
                 continue
 
-            # Página principal
             response = web_page()
             conn.send('HTTP/1.1 200 OK\n')
-            conn.send('Content-Type: text/html\n')
+            conn.send('Content-Type: text/html; charset=utf-8\n')
             conn.send('Connection: close\n\n')
             conn.sendall(response)
             conn.close()
