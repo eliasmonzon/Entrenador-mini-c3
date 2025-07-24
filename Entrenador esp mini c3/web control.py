@@ -11,7 +11,7 @@ import gc
 gc.collect()
 
 # Conexión WiFi
-ssid = 'E13'
+ssid = 'TCL'
 password = 'elias1983'
 
 station = network.WLAN(network.STA_IF)
@@ -25,9 +25,9 @@ print('Conexión exitosa')
 print(station.ifconfig())
 
 # Pines
-relay = Pin(3, Pin.OUT)  # Usamos GPIO10 en vez de GPIO2
-boton = Pin(5, Pin.IN, Pin.PULL_DOWN)
-estado_anterior = 0  # Para detectar flanco del botón
+relay = Pin(2, Pin.OUT)  # Usamos GPIO10 en vez de GPIO2
+#boton = Pin(0, Pin.IN, Pin.PULL_DOWN)
+#estado_anterior = 0  # Para detectar flanco del botón
 
 # Página web con AJAX para actualizar estado del relé
 def web_page():

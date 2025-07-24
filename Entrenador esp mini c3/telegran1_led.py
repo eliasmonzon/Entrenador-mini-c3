@@ -11,7 +11,7 @@ PASSWORD = "elias1983"
 BOT_TOKEN = "5553671950:AAEKsh4xEjhHoZ-w8LaBOjHCv2vv3MFV5vI"
 
 # ID de chat autorizado (REEMPLAZA con tu ID de chat si quieres seguridad)
-AUTHORIZED_CHAT_ID = None # Ejemplo: "123456789" (asegúrate que sea un string)
+AUTHORIZED_CHAT_ID = 1543365473  # Ejemplo: "123456789" (asegúrate que sea un string)
 
 LED_PIN = 0 # Pin GPIO al que está conectado el LED (puede ser distinto según tu ESP)
 
@@ -128,7 +128,7 @@ def main():
         except Exception as e:
             print(f"Error inesperado: {e}")
 
-        time.sleep(5)
+        time.sleep(10)
 
 if __name__ == "__main__":
     while True:
