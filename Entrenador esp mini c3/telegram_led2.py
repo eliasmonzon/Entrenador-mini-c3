@@ -1,7 +1,7 @@
 import network
-import urequests as requests
+import requests as requests
 import time
-import ujson
+import json
 from machine import Pin
 
 # --- Configuración WiFi y Bot ---
@@ -53,7 +53,7 @@ def send_telegram_message(chat_id, message, reply_markup=None):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     payload = {'chat_id': chat_id, 'text': message}
     if reply_markup:
-        payload['reply_markup'] = ujson.dumps(reply_markup)
+        payload['reply_markup'] = json.dumps(reply_markup)
     try:
         response = requests.post(url, json=payload)
         response.close()
