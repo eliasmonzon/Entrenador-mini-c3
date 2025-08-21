@@ -25,7 +25,7 @@ while True:
     luz = int((valor / 4095) * 100)  # Escalar a 0-100%
 
     # Encender LED si la luz es <= 30%
-    if luz <= 20:
+    if luz <= 10:
         led.value(1)
         estado_led = "Encendido"
     else:
