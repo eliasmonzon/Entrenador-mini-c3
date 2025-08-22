@@ -6,10 +6,10 @@ import random
 # ------------------ Configuración de Hardware ------------------
 # LEDs
 leds = {
-    0: Pin(0, Pin.OUT),   # Azul
-    1: Pin(1, Pin.OUT),   # Verde
-    2: Pin(2, Pin.OUT),   # Naranja
-    3: Pin(3, Pin.OUT)    # Rojo
+    3: Pin(0, Pin.OUT),   # Azul
+    2: Pin(1, Pin.OUT),   # Verde
+    1: Pin(2, Pin.OUT),   # Naranja
+    0: Pin(3, Pin.OUT)    # Rojo
 }
 
 # Pulsadores (conectados a GND, pull-up interno)
