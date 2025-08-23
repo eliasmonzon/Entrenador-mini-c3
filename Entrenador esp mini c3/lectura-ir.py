@@ -3,7 +3,7 @@ from IR_remote import ir_receptor
 import utime
 
 # Usar tu clase con el pin donde conectaste el receptor
-Receptor_pin = ir_receptor(4)
+Receptor_pin = ir_receptor(1)
 
 print("Esperando señales del control remoto...")
 
